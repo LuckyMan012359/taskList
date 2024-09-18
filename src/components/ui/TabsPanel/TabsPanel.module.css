@@ -1,0 +1,20 @@
+.tabs {
+  list-style: none;
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding-top: 10px;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.tabContent {
+  padding: 10px 2em;
+  color: #525151;
+  font-family: "Economica", sans-serif;
+  font-size: 14px;
+
+  @media screen and (max-width: 600px) {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+}
