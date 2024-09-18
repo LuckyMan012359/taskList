@@ -112,7 +112,7 @@ export const TaskList = ({
                 isGap,
                 isPinnedTask,
                 date,
-                isDisbale,
+                isDisable,
               },
               idx
             ) => (
@@ -172,7 +172,7 @@ export const TaskList = ({
                     hasPinned={hasPinned}
                     previousItem={projected?.previousRealItem}
                     date={date}
-                    isDisbale={isDisbale}
+                    isDisable={isDisable}
                   />
                 </div>
               </CSSTransition>

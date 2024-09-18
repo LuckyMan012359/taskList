@@ -2,6 +2,7 @@ import { Menu, Item, Separator } from "react-contexify";
 import "react-contexify/ReactContexify.css";
 import { useConfirmationModalContext } from "../../../contexts/modalConfirmationContext";
 import "./ContextMenu.css";
+import { CheckOutlined } from "@ant-design/icons";
 
 const MENU_ID = "contextMenu";
 
@@ -20,7 +21,13 @@ export const ContextMenu = ({
   handleReleaseGroup,
   setSelectedTaskId,
   selectedTaskId,
+  stopDragging,
+  flattenedItems,
 }) => {
+  const selectedData = flattenedItems.find(
+    (item) => item.id === selectedTaskId
+  );
+
   const { showConfirmation } = useConfirmationModalContext();
 
   const handleItemClick = async ({ id, props }) => {
@@ -57,6 +64,14 @@ export const ContextMenu = ({
         break;
       case "revert":
         handleReleaseGroup(props.taskId);
+        break;
+      case "stopDrag":
+        const selectedTask = flattenedItems.find(
+          (item) => item.id === props.taskId
+        );
+        console.log(selectedTask);
+
+        stopDragging(props.taskId, !selectedTask.isDisable);
         break;
       case "deleteGroup":
         const result = await showConfirmation(
@@ -98,10 +113,6 @@ export const ContextMenu = ({
     return !props.taskId || !props.isGroup;
   };
 
-  const cannotGroupBePinned = ({ props }) => {
-    return !props.taskId || !props.isGroup || props.hasPinned;
-  };
-
   const isNotGeneral = ({ props }) => {
     return props.isGroup || props.isGap;
   };
@@ -113,6 +124,14 @@ export const ContextMenu = ({
   const isDoneTask = ({ props }) => {
     return props.checked;
   };
+
+  // const [selectedData, setSelectedData] = useState(null);
+
+  // useEffect(() => {
+  //   setSelectedData(flattenedItems.find((item) => item.id === selectedTaskId));
+
+  //   console.log(flattenedItems.find((item) => item.id === selectedTaskId));
+  // }, [selectedData]);
 
   return (
     <Menu id={menuId}>
@@ -146,6 +165,23 @@ export const ContextMenu = ({
         className="last"
       >
         Make Group
+      </Item>
+      <Separator hidden={isNotTask} />
+      <Item
+        id="stopDrag"
+        onClick={handleItemClick}
+        disabled={isDoneTask}
+        hidden={isNotTask}
+      >
+        {selectedData?.isDisable ? (
+          <div>
+            <CheckOutlined />
+            &nbsp;&nbsp;
+          </div>
+        ) : (
+          <></>
+        )}
+        Stop Dragging
       </Item>
       <Separator hidden={isNotTask} />
       <Item

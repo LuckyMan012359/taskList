@@ -441,6 +441,10 @@ export const TodoContainer = ({ handleContextMenu }) => {
     );
   };
 
+  const stopDragging = (id, isDisable) => {
+    handleChangePropertyTask(id, "isDisable", isDisable);
+  };
+
   const handleDragCancel = () => {
     resetState();
   };
@@ -572,6 +576,8 @@ export const TodoContainer = ({ handleContextMenu }) => {
         handleReleaseGroup={handleReleaseGroup}
         setSelectedTaskId={setSelectedTaskId}
         selectedTaskId={selectedTaskId}
+        stopDragging={stopDragging}
+        flattenedItems={flattenedItems}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
@@ -49,20 +49,26 @@ export const SortableTask = ({
   return (
     <Task
       id={id}
+      // ref={null}
       ref={props.pinned || props.editing ? null : setDraggableNodeRef}
+      // wrapperRef={null}
       wrapperRef={props.pinned ? null : setDroppableNodeRef}
       style={style}
       depth={depth}
-      ghost={isDragging}
+      // ghost={null}
+      ghost={isDisable ? null : isDragging}
       overTaskList={isDragging && overTaskList}
       disableSelection={iOS}
-      disableInteraction={isSorting}
+      // disableInteraction={null}
+      disableInteraction={isDisable ? null : isSorting}
       handleProps={
-        !props.editing &&
-        !props.pinned && {
-          ...attributes,
-          ...listeners,
-        }
+        isDisable
+          ? null
+          : !props.editing &&
+            !props.pinned && {
+              ...attributes,
+              ...listeners,
+            }
       }
       {...props}
       color={
@@ -71,7 +77,6 @@ export const SortableTask = ({
           : props.color
       }
       date={date}
-      isDisable={isDisable}
     />
   );
 };
