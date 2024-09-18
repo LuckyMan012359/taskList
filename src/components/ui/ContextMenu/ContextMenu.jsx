@@ -82,7 +82,6 @@ export const ContextMenu = ({
   };
 
   const cannotBeHighlighted = ({ props }) => {
-    console.log(props, selectedTaskId);
     return (
       !props.taskId ||
       props.isGroup ||

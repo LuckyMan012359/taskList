@@ -34,6 +34,8 @@ export const Task = forwardRef(
       onResolve,
       checked,
       editing,
+      date,
+      isDisable,
       handleSaveTask,
       handleRemoveTask,
       handleChangePropertyTask,
@@ -55,6 +57,14 @@ export const Task = forwardRef(
     const [isSaved, setIsSaved] = useState(false);
 
     const isGap = defaultIsGap && !editing;
+
+    const fetchData = () => {
+      const data = localStorage.getItem("taskLists");
+
+      if (data) {
+        return JSON.parse(data);
+      }
+    };
 
     const getMargin = (depth, cloneDepth) => {
       switch (true) {
@@ -93,10 +103,15 @@ export const Task = forwardRef(
         e.preventDefault();
       }
       onSelect(isGroup ? null : id);
+      console.log(id);
     };
 
     const changeColor = (color) => {
       handleChangePropertyTask(id, "color", color);
+    };
+
+    const changeData = (date) => {
+      handleChangePropertyTask(id, "date", date);
     };
 
     useEffect(() => {
@@ -185,7 +200,7 @@ export const Task = forwardRef(
           />
           {!isGroup && (
             <div className={styles.dateIcon}>
-              <DatePicker />
+              <DatePicker iniDate={date} onChange={changeData} />
             </div>
           )}
 

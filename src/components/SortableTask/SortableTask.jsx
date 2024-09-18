@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
@@ -16,6 +16,8 @@ export const SortableTask = ({
   isBelowDraggable,
   isLastChild,
   previousItem,
+  date,
+  isDisable,
   ...props
 }) => {
   const {
@@ -68,6 +70,8 @@ export const SortableTask = ({
           ? previousItem?.color || previousItem?.groupColor || props.color
           : props.color
       }
+      date={date}
+      isDisable={isDisable}
     />
   );
 };

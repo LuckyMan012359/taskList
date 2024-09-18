@@ -168,6 +168,7 @@
 }
 
 .text {
+  margin-top: 1px;
   border: none;
   background: transparent;
   padding-left: 0.5rem;
@@ -186,8 +187,8 @@
   }
 
   flex-grow: 1;
-  margin-left: 3px;
-  padding: 0 5px;
+  margin-left: 10px;
+  padding: 0 10px;
   white-space: nowrap;
   text-overflow: ellipsis;
   white-space: break-spaces;
@@ -244,9 +245,9 @@
 }
 
 .dateIcon {
-  height: 14px;
+  height: 20px;
 
   svg {
-    height: 14px;
+    height: 20.5px;
   }
 }
